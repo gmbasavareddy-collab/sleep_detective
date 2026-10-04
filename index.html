@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sleep Detective</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #101820;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 20px;
+        }
+
+        video {
+            width: 95%;
+            max-width: 600px;
+            border-radius: 15px;
+            background: black;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 10px;
+            background: #00c853;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #status {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🚗 Sleep Detective</h1>
+
+    <video id="camera" autoplay playsinline></video>
+
+    <br>
+
+    <button onclick="startCamera()">📷 Start Camera</button>
+
+    <div id="status">
+        Camera is OFF
+    </div>
+
+    <script>
+
+        async function startCamera() {
+
+            const video = document.getElementById("camera");
+            const status = document.getElementById("status");
+
+            try {
+
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: "user"
+                    },
+                    audio: false
+                });
+
+                video.srcObject = stream;
+
+                status.innerHTML = "🟢 Camera is ON";
+
+            } catch (error) {
+
+                status.innerHTML = "❌ Camera permission denied";
+
+                console.log(error);
+            }
+        }
+
+    </script>
+
+</body>
+</html>
